@@ -1,11 +1,36 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"strconv"
 )
 
+// Function for inserting items into a slice.
+func insert(orig []int, index int, value int) ([]int, error) {
+	if index < 0 {
+		return nil, errors.New(
+			"Index cannot be less than 0")
+	}
+	if index >= len(orig) {
+		return append(orig, value), nil //why is this nil here??
+	}
+
+	orig = append(orig[:index+1], orig[index:]...)
+	orig[index] = value
+	return orig, nil
+}
+
 func main() {
+
+	t := []int{1, 2, 3, 4, 5}
+	t, err := insert(t, 2, 9)
+	if err == nil {
+		fmt.Println(t) // 1 2 9 3 4 5]
+	} else {
+		fmt.Println(err)
+	}
+
 	var table [5][6]string
 	for row := 0; row < 5; row++ {
 		for column := 0; column < 6; column++ {
