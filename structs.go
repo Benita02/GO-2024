@@ -7,6 +7,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 
 	"github.com/google/go-cmp/cmp"
 )
@@ -23,7 +24,12 @@ type point struct {
 	y int
 	z string
 } // the fields in a struct don't have to be of the same type
-
+func (p point) length() float64 {
+	return math.Sqrt(
+		(math.Pow(float64(p.x), 2) +
+			math.Pow(float64(p.y), 2) +
+			math.Pow(float64(p.z), 2)))
+}
 func newPoint(x float32, y int, z string) *point { //returns a pointer to a point struct as indicated by '*'
 	p := point{x: x, y: y, z: z}
 	return &p // returns address for point struct as indicated '&'
@@ -33,12 +39,15 @@ func main() {
 	//METHODS IN GO
 	// value receivers and pointer receivers,
 	//do a small project to better understand
+	func (p *point) length() float64 { // pointer receiver
+	func (p point) length() float64 { // value receiver
+
 
 	// COMPARING STRUCTS, imported cmp package to properly compare even though fields aren't all comparable
 	pt1 := Point{X: 5.6, Y: 3.8, Z: 6.9,
 		Name: []string{"pt1"}}
 	pt2 := Point{X: 5.6, Y: 3.8, Z: 6.9,
-		Name: []string{"pt"}}
+		Name: []string{"pt1"}}
 	pt3 := Point{X: 5.6, Y: 3.8, Z: 6.9,
 		Name: []string{"pt"}}
 	fmt.Println(cmp.Equal(pt1, pt2)) // false
