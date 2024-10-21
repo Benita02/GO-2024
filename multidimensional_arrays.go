@@ -20,16 +20,32 @@ func insert(orig []int, index int, value int) ([]int, error) {
 	orig[index] = value
 	return orig, nil
 }
+func delete(orig []int, index int) ([]int, error) {
+	if index < 0 || index > len(orig) {
+		return nil, errors.New("Index out of range")
+	}
+	orig = append(orig[:index], orig[index+1:]...)
+	return orig, nil
+
+}
 
 func main() {
-
-	t := []int{1, 2, 3, 4, 5}
-	t, err := insert(t, 2, 9)
+	// TESTING DELETE FUNCTION
+	t := []int{0, 100, 2, 4, 6, 8}
+	t, err := delete(t, -3)
 	if err == nil {
-		fmt.Println(t) // 1 2 9 3 4 5]
+		fmt.Println(t) // [1 2 4 5]
 	} else {
 		fmt.Println(err)
 	}
+	// TESTING INSERT FUNCTION
+	// t := []int{1, 2, 3, 4, 5}
+	// t, err := insert(t, 2, 9)
+	// if err == nil {
+	// 	fmt.Println(t) // 1 2 9 3 4 5]
+	// } else {
+	// 	fmt.Println(err)
+	// }
 
 	var table [5][6]string
 	for row := 0; row < 5; row++ {
