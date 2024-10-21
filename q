@@ -1,0 +1,35 @@
+[33mcommit 8defda2e5cb613c04191d97af0bbe912a4a0850c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Benita Emudianughe <emusbeny@gmail.com>
+Date:   Mon Oct 21 01:51:19 2024 +0100
+
+    Idiomatic Go Code, hence I need constructor functions to create and initialize structs
+
+[33mcommit 8e40333b26e2451b87f0ef688ac0e1c7563e0952[m
+Author: Benita Emudianughe <emusbeny@gmail.com>
+Date:   Mon Oct 21 01:46:13 2024 +0100
+
+    Learning about structs, chapter 7, Go Programming Language for Dummies
+
+[33mcommit 6596de6b833ba5d4fecf0c8fb180dbb22b5ab99d[m
+Author: Benita Emudianughe <emusbeny@gmail.com>
+Date:   Mon Oct 21 01:01:23 2024 +0100
+
+    Added delete function that deletes an element from a slice, and tested it against all possibles cases and ensured proper error management
+
+[33mcommit 10d89620f8d44042d157edf4f0ceebff8b874b91[m
+Author: Benita Emudianughe <emusbeny@gmail.com>
+Date:   Mon Oct 21 00:44:33 2024 +0100
+
+    Implementing an insert functin that uses append() for inserting items into a slice
+
+[33mcommit 9aecd7a624f84681d39a3603c19b791fd969c1c0[m
+Author: Benita Emudianughe <emusbeny@gmail.com>
+Date:   Sun Oct 20 23:19:17 2024 +0100
+
+    learning git from scratch again, created git_practice to track, Version 1
+
+[33mcommit 6718a875c38ebfab27d9129e6cae9791ee51a840[m
+Author: Benita Emudianughe <emusbeny@gmail.com>
+Date:   Fri Oct 18 20:08:36 2024 +0100
+
+    Learning Go, recently working with a textbook and the ztm youtube video

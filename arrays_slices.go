@@ -30,6 +30,7 @@ func delete(orig []int, index int) ([]int, error) {
 }
 
 func main() {
+
 	// TESTING DELETE FUNCTION
 	t := []int{0, 100, 2, 4, 6, 8}
 	t, err := delete(t, -3)
