@@ -28,4 +28,13 @@ func main() {
 	   pt2 := point{x: 5.6, y: 3.8, z: 6.9}
 	   //Field names can be omitted, You can also leave out a specific field when initializing the struct
 	   pt3 := point{5.6, 3.8}
+
+	   /*In Go, creating functions to create and initialize structs is idiomatic 
+	   (meaning it follows the style of writing Go code). 
+	   These types of functions are called constructor functions.*/
+
+	   func newPoint(x float32, y int, z string) *point { //returns a pointer to a point struct as indicated by '*'
+			p := point{x:x, y:y, z:z}
+			return &p // returns address for point struct as indicated '&' 
+	   }
 }
