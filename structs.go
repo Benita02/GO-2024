@@ -39,8 +39,8 @@ func main() {
 	//METHODS IN GO
 	// value receivers and pointer receivers,
 	//do a small project to better understand
-	func (p *point) length() float64 { // pointer receiver
-	func (p point) length() float64 { // value receiver
+	func (p *point) length() float64 { // pointer receiver: you can directly modify the x, y, and z fields without needing to return the struct from the method.
+	func (p point) length() float64 { // value receiver: makes a copy of the struct and retuens data within
 
 
 	// COMPARING STRUCTS, imported cmp package to properly compare even though fields aren't all comparable

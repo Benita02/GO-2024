@@ -74,6 +74,9 @@ func main() {
 	for k, v := range members {
 		fmt.Println(k, v.name, v.email, v.dob)
 	}
+
+	//SORTING A MAP OF STRUCTS
+
 	// lengths := make(map[string]int)
 
 	// lengths["Toyin_land"] = 750
