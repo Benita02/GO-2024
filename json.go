@@ -25,4 +25,9 @@ func main() {
 		fmt.Println(err)
 	}
 
+	// MAPPING CUSTOM ATTRIBUTES
+	type Rates struct {
+		Base   string `json:"base currency"` //These struct field tags in back ticks are necessary due to the space between base and currency
+		Symbol string `json:"destination currency"`
+	}
 }
