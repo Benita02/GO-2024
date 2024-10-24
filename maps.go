@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 // INITIALIZING MAPS
 
@@ -31,10 +34,20 @@ type people struct {
 	dob   dob
 }
 
+var members map[int]people
+
 func main() {
 	// USING STRUCTS AND MAPS IN GO
 	members := make(map[int]people)
-
+	members[0] = people{
+		name:  "Benita The Creator",
+		email: "sci-fi@novel.com",
+		dob: dob{
+			day:   12,
+			month: 10,
+			year:  1996,
+		},
+	}
 	members[1] = people{
 		name:  "Vex'ahlia Griffin ",
 		email: "vox-machina@amazon.com",
@@ -71,11 +84,25 @@ func main() {
 			year:  2001,
 		},
 	}
-	for k, v := range members {
-		fmt.Println(k, v.name, v.email, v.dob)
-	}
+	// for k, v := range members {
+	// 	fmt.Println(k, v.name, v.email, v.dob)
+	// }
 
 	//SORTING A MAP OF STRUCTS
+	var keys []int
+	for k := range members {
+		keys = append(keys, k)
+	}
+
+	sort.Ints(keys)
+	var sliceMembers []people
+	for k := range keys {
+		sliceMembers = append(sliceMembers, members[k])
+	}
+
+	for k, v := range sliceMembers {
+		fmt.Println(k, v.name, v.email, v.dob)
+	}
 
 	// lengths := make(map[string]int)
 
