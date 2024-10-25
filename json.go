@@ -13,6 +13,10 @@ type People struct {
 	  Unmarshal() function*/
 }
 
+func (p People) race() string {
+
+}
+
 func main() {
 	//var person People
 
@@ -60,5 +64,10 @@ func main() {
 	SGD := currencies["SGD"]
 	fmt.Println(SGD)
 
-	//To encode to JSON we can use json.Marshal(nameOfStruct)
+	//To encode to JSON we can use json.Marshal(nameOfStruct) but this doesn't have proper indentation
+	//For proper indentation use json.MarshalIndent(nameOfStruct, "", "   ")
+	/*
+				The second argument specifies the string to prefix to the beginning of each line of
+		output, and the third argument specifies the string to indent for each line
+	*/
 }
