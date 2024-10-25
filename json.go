@@ -59,4 +59,6 @@ func main() {
 	currencies := rates.(map[string]interface{})
 	SGD := currencies["SGD"]
 	fmt.Println(SGD)
+
+	//To encode to JSON we can use json.Marshal(nameOfStruct)
 }
