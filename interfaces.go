@@ -29,4 +29,8 @@ func main() {
 	var d DigitsCounter
 	d = s
 	fmt.Println(d.CountOddEven())
+	// HOW I MAY USE INTERFACES
+	//Stringer interface in fmt.Println, check go docs to better understand
+	//IMPLEMENTING MULTIPLE INTERFACES
+
 }
