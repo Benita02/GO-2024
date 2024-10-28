@@ -79,6 +79,8 @@ func main() {
 
 	//Stringer interface in fmt.Println, check go docs to better understand
 	//IMPLEMENTING MULTIPLE INTERFACES
+
+	// Determining whether a value implements
 	var v interface{} = c1
 	v, ok := v.(Shape)
 	fmt.Println(v, ok)
