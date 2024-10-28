@@ -39,11 +39,6 @@ func (c Circle) Area() float64 {
 func (s Square) Area() float64 {
 	return s.length * s.length
 }
-func calculateArea(listOfShapes []Shape) {
-	for _, shape := range listOfShapes {
-		fmt.Println("Area: ", shape.Area())
-	}
-}
 
 type Triangle struct {
 	base   float64
@@ -52,6 +47,11 @@ type Triangle struct {
 
 func (t Triangle) Area() float64 {
 	return 0.5 * t.base * t.height
+}
+func calculateArea(listOfShapes []Shape) {
+	for _, shape := range listOfShapes {
+		fmt.Println("Area: ", shape.Area())
+	}
 }
 func main() {
 	// IMPLEMENTING AN INTERFACE
@@ -79,5 +79,8 @@ func main() {
 
 	//Stringer interface in fmt.Println, check go docs to better understand
 	//IMPLEMENTING MULTIPLE INTERFACES
+	var v interface{} = c1
+	v, ok := v.(Shape)
+	fmt.Println(v, ok)
 
 }
