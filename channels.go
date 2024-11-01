@@ -35,5 +35,18 @@ func main() {
 		go sum(s[i*partSize:(i+1)*partSize], c)
 		i += 1
 	}
+	/*Because you know that you have five separate goroutines (and, therefore, a total
+	  of five values to be written to the channel), you can write a loop and try to extract
+	  the values in the channel:*/
+	i = 0
+	total := 0
+	for i < parts {
+		partialSum := <-c // read from channel
+		fmt.Println("Partial Sum: ", partialSum)
+		total += partialSum
+		i += 1
+	}
+	fmt.Println("Total: ", total)
+	fmt.Scanln()
 
 }
