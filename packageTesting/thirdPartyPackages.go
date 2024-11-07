@@ -8,10 +8,12 @@ import (
 )
 
 func main() {
-	emoji, ok := turtle.Emojis["middle finger"]
+	emoji, ok := turtle.Emojis["smiley"]
 	if !ok {
 		fmt.Println("No emoji found.")
 	} else {
-		fmt.Println("Fuck you bitches", emoji.Char)
+		fmt.Println(emoji.Char)
 	}
 }
+
+// moving on to work on go doc package which
