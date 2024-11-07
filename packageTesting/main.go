@@ -24,5 +24,5 @@ func main() {
 	p1 := peopleMethods.People{Name: name, Age: age}
 
 	fmt.Println("Your name is: ", p1.Name)
-	fmt.Println("Your age is ", p1.Age)
+	fmt.Println(p1.AgeLimit())
 }
