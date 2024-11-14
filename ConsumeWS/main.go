@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	url := "http://data.fixer.io/api/latest?access_key=<access_key>"
+	url := "http://data.fixer.io/api/latest?access_key=34f101b1e43c596ecdc669eeb73e27e0"
 
 	resp, err := http.Get(url)
 	if err != nil {
