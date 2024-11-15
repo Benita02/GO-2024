@@ -24,3 +24,5 @@ func main() {
 	fmt.Println(string(body))
 	fmt.Println("Done")
 }
+
+//learning optimized version of how to access the fixer api on phone since no electricity to charge laptop
