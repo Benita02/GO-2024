@@ -9,7 +9,7 @@ import (
 
 var apis = map[int]string{
 	1: "http://data.fixer.io/api/latest?access_key=34f101b1e43c596ecdc669eeb73e27e0",
-	2: "http://api.openweathermap.org/data/2.5/weather?q=SINGAPORE&appid=d317d04187dd928b884fd1b6697c05b",
+	2: "http://api.openweathermap.org/data/2.5/weather?q=SINGAPORE&appid=6b4d7ef379aea53ad8f4e224e5be2161",
 }
 
 func fetchData(apiID int) {
