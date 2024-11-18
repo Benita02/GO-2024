@@ -63,3 +63,5 @@ func printRates(rates map[string]float64) {
 		fmt.Printf("%s: %f\n", currency, rates[currency])
 	}
 }
+
+// continued work from phone, nothing to commit
