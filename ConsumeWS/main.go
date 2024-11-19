@@ -65,3 +65,4 @@ func printRates(rates map[string]float64) {
 }
 
 // continued work from phone, nothing to commit
+// laptop, 18%, continuing work from phone, nothing to commit
