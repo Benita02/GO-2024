@@ -12,31 +12,34 @@ var apis = map[int]string{
 	2: "http://api.openweathermap.org/data/2.5/weather?q=SINGAPORE&appid=6b4d7ef379aea53ad8f4e224e5be2161",
 }
 
-func fetchData(apiID int) {
+// Result struct to encapsulate API responses and potential errors
+type Result struct {
+	APIID int
+	Data  map[string]interface{}
+	Error error
+}
+
+func fetchData(apiID int, ch chan<- Result) {
 	url, ok := apis[apiID]
 	if !ok {
-		log.Fatalf("Invalid API ID: %d", apiID)
+		ch <- Result{APIID: apiID, Error: fmt.Errorf("invalid API ID: %d", apiID)}
+		return
 	}
 
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatalf("Error fetching data from API %d: %v", apiID, err)
+		ch <- Result{APIID: apiID, Error: fmt.Errorf("error fetching data from API %d: %v", apiID, err)}
+		return
 	}
 	defer resp.Body.Close()
 
 	var result map[string]interface{}
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		log.Fatalf("Error decoding response from API %d: %v", apiID, err)
+		ch <- Result{APIID: apiID, Error: fmt.Errorf("error decoding response from API %d: %v", apiID, err)}
+		return
 	}
 
-	switch apiID {
-	case 1: // Fixer.io API
-		handleFixerResponse(result)
-	case 2: // OpenWeatherMap API
-		handleWeatherResponse(result)
-	default:
-		log.Fatalf("Unknown API ID: %d", apiID)
-	}
+	ch <- Result{APIID: apiID, Data: result}
 }
 
 func handleFixerResponse(result map[string]interface{}) {
@@ -70,6 +73,27 @@ func handleWeatherResponse(result map[string]interface{}) {
 }
 
 func main() {
-	fetchData(1)
-	fetchData(2)
+	// Create a channel to collect results from Goroutines
+	results := make(chan Result, len(apis))
+
+	// Launch Goroutines for each API
+	for apiID := range apis {
+		go fetchData(apiID, results)
+	}
+
+	// Collect and process results
+	for i := 0; i < len(apis); i++ {
+		result := <-results
+		if result.Error != nil {
+			log.Printf("Error from API %d: %v\n", result.APIID, result.Error)
+			continue
+		}
+
+		switch result.APIID {
+		case 1:
+			handleFixerResponse(result.Data)
+		case 2:
+			handleWeatherResponse(result.Data)
+		}
+	}
 }
