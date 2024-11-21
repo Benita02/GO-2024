@@ -97,3 +97,5 @@ func main() {
 		}
 	}
 }
+
+//learning so much about web services with go, optimized and idiomatic code, rest api's too and different new web concepts in GO.
