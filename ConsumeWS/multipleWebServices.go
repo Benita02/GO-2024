@@ -3,100 +3,101 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
+	"sync"
 )
 
-var apis = map[int]string{
-	1: "http://data.fixer.io/api/latest?access_key=34f101b1e43c596ecdc669eeb73e27e0",
-	2: "http://api.openweathermap.org/data/2.5/weather?q=SINGAPORE&appid=6b4d7ef379aea53ad8f4e224e5be2161",
-}
+var (
+	apis = map[int]string{
+		1: "http://data.fixer.io/api/latest?access_key=<access_key>",
+		2: "http://api.openweathermap.org/data/2.5/weather?q=SINGAPORE&appid=<app_id>",
+	}
+)
 
-// Result struct to encapsulate API responses and potential errors
-type Result struct {
-	APIID int
-	Data  map[string]interface{}
+type APIResult struct {
+	ID    int
+	Value interface{}
 	Error error
 }
 
-func fetchData(apiID int, ch chan<- Result) {
+func fetchData(apiID int, ch chan<- APIResult, wg *sync.WaitGroup) {
+	defer wg.Done()
+
 	url, ok := apis[apiID]
 	if !ok {
-		ch <- Result{APIID: apiID, Error: fmt.Errorf("invalid API ID: %d", apiID)}
+		ch <- APIResult{ID: apiID, Error: fmt.Errorf("invalid API ID: %d", apiID)}
 		return
 	}
 
 	resp, err := http.Get(url)
 	if err != nil {
-		ch <- Result{APIID: apiID, Error: fmt.Errorf("error fetching data from API %d: %v", apiID, err)}
+		ch <- APIResult{ID: apiID, Error: fmt.Errorf("failed to fetch data: %w", err)}
 		return
 	}
 	defer resp.Body.Close()
 
-	var result map[string]interface{}
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		ch <- Result{APIID: apiID, Error: fmt.Errorf("error decoding response from API %d: %v", apiID, err)}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		ch <- APIResult{ID: apiID, Error: fmt.Errorf("failed to read response: %w", err)}
 		return
 	}
 
-	ch <- Result{APIID: apiID, Data: result}
-}
+	var result map[string]interface{}
+	if err := json.Unmarshal(body, &result); err != nil {
+		ch <- APIResult{ID: apiID, Error: fmt.Errorf("failed to parse JSON: %w", err)}
+		return
+	}
 
-func handleFixerResponse(result map[string]interface{}) {
-	if success, ok := result["success"].(bool); ok && success {
-		if rates, ok := result["rates"].(map[string]interface{}); ok {
-			if usd, ok := rates["USD"].(float64); ok {
-				fmt.Printf("USD Exchange Rate: %.2f\n", usd)
-				return
+	var apiResult interface{}
+	switch apiID {
+	case 1: // Currency API
+		if success, ok := result["success"].(bool); ok && success {
+			if rates, ok := result["rates"].(map[string]interface{}); ok {
+				apiResult = rates["USD"]
+			}
+		} else {
+			if errorInfo, ok := result["error"].(map[string]interface{}); ok {
+				apiResult = errorInfo["info"]
 			}
 		}
-		log.Println("Unexpected rates format in Fixer.io response.")
-	} else if errorInfo, ok := result["error"].(map[string]interface{}); ok {
-		fmt.Println("Fixer.io Error:", errorInfo["info"])
-	} else {
-		log.Println("Unexpected Fixer.io error format.")
-	}
-}
-
-func handleWeatherResponse(result map[string]interface{}) {
-	if main, ok := result["main"].(map[string]interface{}); ok {
-		if temp, ok := main["temp"].(float64); ok {
-			fmt.Printf("Temperature in Singapore: %.2f°C\n", temp-273.15) // Convert Kelvin to Celsius
-			return
+	case 2: // Weather API
+		if main, ok := result["main"].(map[string]interface{}); ok {
+			apiResult = main["temp"]
+		} else {
+			apiResult = result["message"]
 		}
-		log.Println("Unexpected temperature format in OpenWeatherMap response.")
-	} else if message, ok := result["message"].(string); ok {
-		fmt.Println("OpenWeatherMap Error:", message)
-	} else {
-		log.Println("Unexpected OpenWeatherMap error format.")
+	default:
+		ch <- APIResult{ID: apiID, Error: fmt.Errorf("unsupported API ID: %d", apiID)}
+		return
 	}
+
+	ch <- APIResult{ID: apiID, Value: apiResult}
 }
 
 func main() {
-	// Create a channel to collect results from Goroutines
-	results := make(chan Result, len(apis))
+	results := make(chan APIResult)
+	var wg sync.WaitGroup
 
-	// Launch Goroutines for each API
+	// Launch fetch tasks for each API
 	for apiID := range apis {
-		go fetchData(apiID, results)
+		wg.Add(1)
+		go fetchData(apiID, results, &wg)
 	}
 
-	// Collect and process results
-	for i := 0; i < len(apis); i++ {
-		result := <-results
-		if result.Error != nil {
-			log.Printf("Error from API %d: %v\n", result.APIID, result.Error)
-			continue
-		}
+	// Close the results channel once all tasks complete
+	go func() {
+		wg.Wait()
+		close(results)
+	}()
 
-		switch result.APIID {
-		case 1:
-			handleFixerResponse(result.Data)
-		case 2:
-			handleWeatherResponse(result.Data)
+	// Collect and print results
+	for result := range results {
+		if result.Error != nil {
+			log.Printf("API %d error: %v\n", result.ID, result.Error)
+		} else {
+			fmt.Printf("API %d result: %v\n", result.ID, result.Value)
 		}
 	}
 }
-
-//learning so much about web services with go, optimized and idiomatic code, rest api's too and different new web concepts in GO.
-// debugging
