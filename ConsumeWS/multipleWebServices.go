@@ -18,7 +18,7 @@ var (
 
 type APIResult struct {
 	ID    int
-	Value interface{}
+	Data  interface{}
 	Error error
 }
 
@@ -73,7 +73,7 @@ func fetchData(apiID int, ch chan<- APIResult, wg *sync.WaitGroup) {
 		return
 	}
 
-	ch <- APIResult{ID: apiID, Value: apiResult}
+	ch <- APIResult{ID: apiID, Data: apiResult}
 }
 
 func main() {
