@@ -121,3 +121,5 @@ func main() {
 		processResult(result)
 	}
 }
+
+// READING ABOUT RESTAPIs
