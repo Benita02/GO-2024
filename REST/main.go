@@ -27,3 +27,4 @@ func main() {
 	log.Printf("Server is starting on port %s\n", port)
 	log.Fatal(http.ListenAndServe(port, router))
 }
+// reading up on more of this 
