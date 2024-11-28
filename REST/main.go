@@ -10,7 +10,7 @@ import (
 
 const (
 	port       = ":5000" // Define the port as a constant
-	apiBaseURL = "/api/v1/"
+	apiBaseURL = "/api/v1/public"
 )
 
 // LoggingMiddleware logs each incoming request.
@@ -24,23 +24,25 @@ func LoggingMiddleware(next http.Handler) http.Handler {
 }
 
 // home handles requests to the base API route.
-func home(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(http.StatusText(http.StatusOK) + ": Welcome to the REST API!"))
-}
 
 func main() {
+	//You can wrap specific routes with middleware by using the Use method on a subrouter.
 	router := mux.NewRouter()
 
-	// Add middleware to the router
-	router.Use(LoggingMiddleware)
+	// Public route (no middleware)
+	router.HandleFunc(apiBaseURL, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(http.StatusText(http.StatusOK) + ": Welcome to the REST API!"))
+	}).Methods(http.MethodGet)
 
-	// Define routes with explicit HTTP methods
-	router.HandleFunc(apiBaseURL, home).Methods(http.MethodGet)
+	// Create a subrouter for protected routes
+	protected := router.PathPrefix("/api/v1/protected").Subrouter()
+	// Add middleware to the router
+	protected.Use(LoggingMiddleware) // Apply middleware only to protected routes
+
+	protected.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
+		w.write([]byte("Protected route: middleware applied"))
+	}).Methods(http.MethodGet)
 
 	log.Printf("Server is starting on port %s\n", port)
 	log.Fatal(http.ListenAndServe(port, router))
 }
-
-// reading up on more of this again
-// Learnt about middleware integration
