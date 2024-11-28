@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/mux"
 )
@@ -12,6 +13,16 @@ const (
 	apiBaseURL = "/api/v1/"
 )
 
+// LoggingMiddleware logs each incoming request.
+func LoggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		log.Printf("Request: %s %s from %s", r.Method, r.URL.Path, r.RemoteAddr)
+		next.ServeHTTP(w, r) // Call the next handler
+		log.Printf("Completed in %s", time.Since(start))
+	})
+}
+
 // home handles requests to the base API route.
 func home(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
@@ -20,6 +31,9 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
+
+	// Add middleware to the router
+	router.Use(LoggingMiddleware)
 
 	// Define routes with explicit HTTP methods
 	router.HandleFunc(apiBaseURL, home).Methods(http.MethodGet)
