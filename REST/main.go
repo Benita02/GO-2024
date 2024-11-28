@@ -15,7 +15,7 @@ const (
 // home handles requests to the base API route.
 func home(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(http.StatusText(http.StatusOK) + ": Welcome to the REST API!"))
+	w.Write([]byte(http.Statu4sText(http.StatusOK) + ": Welcome to the REST API!"))
 }
 
 func main() {
@@ -27,4 +27,5 @@ func main() {
 	log.Printf("Server is starting on port %s\n", port)
 	log.Fatal(http.ListenAndServe(port, router))
 }
-// reading up on more of this 
+
+// reading up on more of this again
