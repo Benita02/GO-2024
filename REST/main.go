@@ -15,7 +15,7 @@ const (
 // home handles requests to the base API route.
 func home(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(http.Statu4sText(http.StatusOK) + ": Welcome to the REST API!"))
+	w.Write([]byte(http.StatusText(http.StatusOK) + ": Welcome to the REST API!"))
 }
 
 func main() {
@@ -29,3 +29,4 @@ func main() {
 }
 
 // reading up on more of this again
+// Learnt about middleware integration
