@@ -40,16 +40,9 @@ func main() {
 	protected.Use(LoggingMiddleware) // Apply middleware only to protected routes
 
 	protected.HandleFunc("/data", func(w http.ResponseWriter, r *http.Request) {
-		w.write([]byte("Protected route: middleware applied"))
+		w.Write([]byte("Protected route: middleware applied"))
 	}).Methods(http.MethodGet)
 
 	log.Printf("Server is starting on port %s\n", port)
 	log.Fatal(http.ListenAndServe(port, router))
 }
-
-//thinking of starting html and css
-//worried I might become inconsistent with my GO learnings
-//due to work and school, working on final year undergraduate project
-// IT report, the project proposal and GDG on Campus activities and community engagement
-// God help me
-//read up on mutexes
