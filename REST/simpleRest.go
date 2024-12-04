@@ -12,7 +12,11 @@ func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome to the REST API!")
 }
 func allcourses(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "List of all courses")
+	//fmt.Fprintf(w, "List of all courses")
+	kv := r.URL.Query()
+	for k, v := range kv {
+		fmt.Println(k, v)
+	}
 }
 func course(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
