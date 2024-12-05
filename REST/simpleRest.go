@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -28,7 +27,7 @@ func main() {
 	router.HandleFunc("/api/v1/courses", allcourses)
 	router.HandleFunc("/api/v1/courses/{courseid}", course)
 	fmt.Println("Listening at port 5000")
-	log.Fatal(http.ListenAndServe(":5000", router))
+	http.ListenAndServe(":5000", router)
 }
 
 //break
