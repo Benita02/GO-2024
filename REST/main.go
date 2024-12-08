@@ -1,6 +1,9 @@
-// package main
+package main
 
-// import (
+import (
+	"fmt"
+)
+
 // 	"log"
 // 	"net/http"
 // 	"time"
@@ -48,3 +51,8 @@
 // }
 
 // //break
+func main() {
+	for k := range 10 {
+		fmt.Println(k)
+	}
+}

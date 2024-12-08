@@ -16,6 +16,9 @@ func allcourses(w http.ResponseWriter, r *http.Request) {
 	for k, v := range kv {
 		fmt.Println(k, v)
 	}
+	if val, ok := kv["country"]; ok {
+		fmt.Println(val[0])
+	}
 }
 func course(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
