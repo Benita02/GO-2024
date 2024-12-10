@@ -51,8 +51,3 @@ import (
 // }
 
 // //break
-func main() {
-	for k := range 10 {
-		fmt.Println(k)
-	}
-}
