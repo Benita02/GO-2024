@@ -35,6 +35,4 @@ func main() {
 	http.ListenAndServe(":5000", router)
 }
 
-//Read a lot about REST APIs, also read about GRAPH QL
-//Downloaded books on REST APIs and generally just apis
-//also better understood this code and saw an optimised idiomatic version of this code
+//built RESTful Web Services with GO, started reading this
