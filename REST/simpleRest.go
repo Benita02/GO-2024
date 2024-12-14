@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -10,15 +11,24 @@ import (
 func home(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome to the REST API!")
 }
+
+type courseInfo struct {
+	Title string `json:"Title"`
+}
+
+var courses map[string]courseInfo
+
 func allcourses(w http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintf(w, "List of all courses")
 	kv := r.URL.Query()
 	for k, v := range kv {
 		fmt.Println(k, v)
 	}
-	if val, ok := kv["country"]; ok {
-		fmt.Println(val[0])
-	}
+	// returns all the courses in JSON
+	json.NewEncoder(w).Encode(courses)
+	// if val, ok := kv["country"]; ok {
+	// 	fmt.Println(val[0])
+	// }
 }
 func course(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
