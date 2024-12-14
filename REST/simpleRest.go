@@ -45,4 +45,4 @@ func main() {
 	http.ListenAndServe(":5000", router)
 }
 
-//built RESTful Web Services with GO, started reading this
+//Reading up on creating new courses for this particular code
