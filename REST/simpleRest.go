@@ -89,4 +89,4 @@ func main() {
 	http.ListenAndServe(":5000", router)
 }
 
-//Reading up on creating new courses for this particular code
+//The next operation I need to implement is updating existing courses.
