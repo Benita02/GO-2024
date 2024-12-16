@@ -1,2 +1,28 @@
 screenshot management app v1 (cli app)
 v2 will be done with the fyne framework
+
+# Screenshot Management CLI App
+
+A simple command-line interface (CLI) app built with Go to manage and monitor screenshots in a specific directory. The app allows users to set a limit for screenshots, check the number of screenshots in a directory, and delete screenshots as needed.
+
+## Features
+
+- **Monitor Screenshot Directory**: Scans a specified directory for image files (`.png`, `.jpg`, `.jpeg`).
+- **User Preferences**: Allows users to set a limit for the number of screenshots they want to store.
+- **Screenshot Count Alert**: Notifies users when they exceed their set limit of screenshots.
+- **Delete or Keep Screenshots**: Provides options to delete or keep screenshots from the directory.
+- **Persistent Preferences**: Saves user preferences to a JSON file.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- [Go 1.18+](https://golang.org/dl/) — for compiling and running the application.
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/screenshot-management-cli.git
+   cd screenshot-management-cli
