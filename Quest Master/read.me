@@ -1,1 +1,193 @@
 I will be building this cli app and simultaneously learning how to build powerful CLI apps 
+# Wrote read.me with chatgpt and I will be making a lot of edits 
+
+Here’s a detailed `README.md` for your **Task Adventure Journal CLI** project, formatted with appropriate markdown symbols:
+
+```markdown
+# Task Adventure Journal CLI
+
+A gamified CLI app that transforms your daily tasks into fun quests, combining productivity with role-playing game mechanics. Track your progress, level up your skills, write mission reports, and unlock new adventures as you complete tasks.
+
+## Features
+
+- **Quest Mapping**: View and complete tasks treated as quests. Tasks are associated with difficulty, rewards, and a progress map.
+- **Skill Leveling**: Earn XP for completing tasks and level up various skills (e.g., Strength, Intelligence, Creativity).
+- **Mission Reports**: Write and save mission reports after completing each task to reflect on your journey.
+- **Character Development**: Track progress in character traits like Strength, Intelligence, Creativity, etc.
+- **Persistence**: Saves your tasks, mission reports, and character progress for future sessions.
+
+## Prerequisites
+
+Before starting, make sure you have the following installed:
+
+- [Go 1.18+](https://golang.org/dl/) — for compiling and running the application.
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/task-adventure-journal-cli.git
+   cd task-adventure-journal-cli
+   ```
+
+2. Build the app:
+
+   ```bash
+   go build -o journal .
+   ```
+
+   This will create an executable file called `journal`.
+
+## How to Use
+
+### 1. **Start Your Adventure**
+
+To initialize your adventure, run:
+
+```bash
+./journal start
+```
+
+This will ask for your character's name and set up your initial skills.
+
+### 2. **Complete Tasks and Earn XP**
+
+Each task is treated as a quest with a difficulty level. To mark a task as completed:
+
+```bash
+./journal complete <task_name>
+```
+
+Completing tasks earns you XP and may unlock new quests or abilities.
+
+### 3. **View Character Stats**
+
+To check your current progress, including your level and XP, run:
+
+```bash
+./journal stats
+```
+
+This will display your character's stats and progress.
+
+### 4. **Write a Mission Report**
+
+After completing a task, you’ll be prompted to write a short report on your mission. To write your report:
+
+```bash
+./journal report
+```
+
+Your mission report will be saved for future review.
+
+### 5. **Unlock New Quests**
+
+As you complete tasks and level up, new quests will become available. To see your available quests:
+
+```bash
+./journal unlock
+```
+
+### 6. **View Your Quest Map**
+
+As tasks are completed, new regions of the map will be unlocked. You can view your current quest map using:
+
+```bash
+./journal map
+```
+
+This will display an ASCII-style map with regions representing your progress.
+
+## Project Structure
+
+```
+task-adventure-journal-cli/
+│
+├── main.go              # Main application entry point
+├── tasks.json           # Stores tasks and their statuses
+├── character.json       # Stores character stats (skills, levels, XP)
+├── mission_reports/     # Folder to store completed mission reports
+├── pkg/
+│   ├── task/
+│   │   ├── task.go      # Logic for managing tasks and quests
+│   ├── character/
+│   │   ├── character.go # Logic for leveling up and managing skills
+│   └── report/
+│       └── report.go    # Logic for saving and viewing mission reports
+└── README.md            # Project documentation
+```
+
+### `pkg/task/`
+Handles tasks and quests:
+- **task.go**: Contains functions to create, view, complete, and unlock tasks.
+
+### `pkg/character/`
+Manages character stats and progression:
+- **character.go**: Functions for leveling up, tracking experience points, and displaying character stats.
+
+### `pkg/report/`
+Handles mission reports:
+- **report.go**: Prompts the user for mission reports and saves them to a file.
+
+---
+
+## CLI Commands Overview
+
+- `./journal start`: Start a new adventure and create your character.
+- `./journal complete <task_name>`: Mark a task as completed and earn XP.
+- `./journal stats`: Show your current character stats and skill levels.
+- `./journal report`: Write and save a mission report.
+- `./journal unlock`: View available quests and unlock new tasks.
+- `./journal map`: Display the quest map and view your unlocked regions.
+
+## Persistence
+
+This app uses JSON files to store:
+
+- **Tasks**: Each task is saved with its status (pending, completed, unlocked).
+- **Character Stats**: Track skills, XP, and character progression.
+- **Mission Reports**: Save reflections and challenges after completing tasks.
+
+## Potential Enhancements
+
+- **Random Task Generator**: Automatically generate new tasks or challenges based on user input.
+- **Advanced Quest Map**: Show more detailed regions or even ASCII maps with NPCs, treasure, etc.
+- **Multiplayer**: Allow users to share tasks or compete against friends.
+- **Notifications**: Notify users when a task is unlocked or a level-up occurs.
+
+## How to Contribute
+
+Feel free to fork this repository and submit pull requests with bug fixes, new features, or improvements!
+
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes and commit them.
+4. Push your changes to your fork.
+5. Open a pull request to merge your changes into the main repository.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Acknowledgments
+
+- Go for making it easy to create simple, fast, and efficient CLI applications.
+- [Cobra](https://github.com/spf13/cobra) or [urfave/cli](https://github.com/urfave/cli) (for CLI argument parsing if added later).
+- Inspiration from RPG games and productivity apps.
+```
+
+### Key Sections Explained:
+
+- **Features**: Overview of the gamified task management system, highlighting unique aspects like task quests, skill leveling, and mission reports.
+- **Installation**: Instructions to clone and build the app.
+- **How to Use**: Step-by-step instructions on starting your adventure, completing tasks, leveling up, and managing mission reports.
+- **Project Structure**: Detailed breakdown of the folder structure and each module’s responsibility.
+- **CLI Commands Overview**: List of available commands with a brief explanation of what each one does.
+- **Persistence**: Explanation of how the app saves progress using JSON files.
+- **Potential Enhancements**: Ideas for further improving the app, such as adding multiplayer support or more advanced quest maps.
+- **How to Contribute**: Information on how others can contribute to the project.
+
+This `README.md` provides clear guidance on the structure and features of the Task Adventure Journal CLI, making it easy for developers to understand and use. It’s beginner-friendly while still offering plenty of room for future expansion.
