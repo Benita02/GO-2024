@@ -51,6 +51,6 @@ func (u *UserProfile) completeTask(task Task) {
 	if task.Difficulty == 3 {
 		u.Skills["Discipline"] += task.XP / 2
 	}
-}
+	// need to add other skills to level up
 
-//
+}
