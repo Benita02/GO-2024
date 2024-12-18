@@ -1,5 +1,10 @@
 package main
 
+// Constants for the XP system
+const (
+	LevelUpThreshold = 225
+)
+
 // 1. Quest Mapping: Task List by Difficulty
 type Task struct {
 	Name        string
@@ -29,28 +34,27 @@ their XP is tracked and used to level up skills and unlock new character abiliti
 
 // UserProfile struct to track the user’s skills, XP, and character level.
 type UserProfile struct {
-	Name   string
-	XP     int            // Total XP of the user
-	Level  int            // Current character level
-	Skills map[string]int //Skills with their corresponding levels
+	Name  string
+	XP    int // Total XP of the user
+	Level int // Current character level
 }
 
 // Incrementing XP & Leveling Up
 /* When a user completes a task, they earn XP,
-which may increase their overall level or unlock new skills.
+which may increase their overall level
 Tasks of higher difficulty give more XP, and the user levels up after reaching certain XP thresholds.
 */
-// completeTask method
+// completeTask method assigns XP based on the task and updates the user's level.
 func (u *UserProfile) completeTask(task Task) {
-	u.XP += task.XP
-	if u.XP >= 225 { // XP threshold for level up
-		u.Level++
-		u.XP = 0 // Reset XP after leveling up
+	taskXP := map[int]int{
+		1: 3.75, // Difficulty 1 gets 3 XP
+		2: 7.5,  // Difficulty 2 gets 7 XP
+		3: 15,   // Difficulty 3 gets 15 XP
 	}
-	// Assign skill improvements based on task difficulty
-	if task.Difficulty == 3 {
-		u.Skills["Discipline"] += task.XP / 2
+
+	if increment, ok := taskXP[task.Difficulty]; ok {
+		task.XP = increment
+		u.XP += increment
 	}
-	// need to add other skills to level up
 
 }
