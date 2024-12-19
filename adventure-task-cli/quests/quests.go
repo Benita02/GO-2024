@@ -1,4 +1,8 @@
-package main
+package quests
+
+import(
+	"os"
+)
 
 // Constants for the XP system
 const (
@@ -9,7 +13,7 @@ const (
 type Task struct {
 	Name        string
 	Difficulty  int  //Task difficulty (1 = easy, 2 = medium, 3 = hard)
-	XP          int  //XP earned upon completion
+	XP          float32  //XP earned upon completion
 	Completed   bool // Whether the task has been completed
 	LevelUnlock int  // Level required to unlock the task
 }
@@ -35,7 +39,7 @@ their XP is tracked and used to level up skills and unlock new character abiliti
 // UserProfile struct to track the user’s skills, XP, and character level.
 type UserProfile struct {
 	Name  string
-	XP    int // Total XP of the user
+	XP    float32 // Total XP of the user
 	Level int // Current character level
 }
 
@@ -46,7 +50,7 @@ Tasks of higher difficulty give more XP, and the user levels up after reaching c
 */
 // completeTask method assigns XP based on the task and updates the user's level.
 func (u *UserProfile) completeTask(task Task) {
-	taskXP := map[int]int{
+	taskXP := map[int]float32{
 		1: 3.75, // Difficulty 1 gets 3 XP
 		2: 7.5,  // Difficulty 2 gets 7 XP
 		3: 15,   // Difficulty 3 gets 15 XP
@@ -57,4 +61,17 @@ func (u *UserProfile) completeTask(task Task) {
 		u.XP += increment
 	}
 
+	func saveReport(task Task, report string) error {
+		file, err := os.Create(task.Name + "_report.txt")
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+
+	_, err = file.WriteString(report)
+	if err != nil {
+		return err
+	}
+	return nil // Return nil to indicate success
 }
+
