@@ -76,3 +76,4 @@ func (u *UserProfile) completeTask(task Task) {
 }
 
 // no time
+//pause, will watch yt video or something
