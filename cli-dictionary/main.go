@@ -9,3 +9,5 @@ func main() {
 	fmt.Println("Welcome to CLI Dictionary!")
 	cmd.RunCLI()
 }
+
+//reading on project
