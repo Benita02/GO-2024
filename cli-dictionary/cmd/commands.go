@@ -14,11 +14,11 @@ func RunCLI() {
 		fmt.Println("2. View saved words")
 		fmt.Println("3. Exit")
 
-		fmt.Println("\nEnter your choice: ")
+		fmt.Println("Enter your choice: ")
 		scanner.Scan()
 		choice := scanner.Text()
 
-		switch choice {
+		switch choice{
 		case "1":
 			fmt.Println("Enter the word to look up: ")
 			if !scanner.Scan() {
@@ -30,10 +30,14 @@ func RunCLI() {
 		case "2":
 			handleViewSavedWords()
 		case "3":
-			fmt.Println("Goodbye!")
+			fmt.Println("Bye-Bye!!")
 			return
 		default:
 			fmt.Println("Invalid option, please try again.")
 		}
 	}
+func handleWordLookup(word string) {
+	
+}
+	
 }
